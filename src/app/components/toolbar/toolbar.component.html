@@ -1,0 +1,143 @@
+<mat-toolbar class="navbar-properties padding-top">
+
+    <mat-toolbar-row class="pad">
+        <div class="container" fxFlex fxFlexLayout.xs="column" fxLayoutAlign="center" fxLayoutGap.xs="0">
+            <div fxFlex="4%">
+                <mat-icon class="size40px alice-blue">restaurant_menu</mat-icon>
+            </div>
+            <div fxFlex class="alice-blue size30px">
+                Restaurant Recommender System
+            </div>
+            <div fxFlex="25%" *ngIf="!stillLoggingIn && !isLoggedIn">
+                <div fxFlex fxLayoutAlign="end start">
+                    <button mat-button class="alice-blue" (click)="notYetImplemented()">
+                        <mat-icon class="alice-blue">person_add</mat-icon>Register
+                    </button>
+                </div>
+                <div fxFlex fxLayoutAlign="end start">
+                    <button mat-button class="alice-blue" (click)="loginForm()" >
+                        <mat-icon class="alice-blue">input</mat-icon>Log In
+                    </button>
+                </div>
+            </div>
+            <div fxFlex="40%" *ngIf="stillLoggingIn && !isLoggedIn">
+                <div fxFlex>
+                    <mat-form-field>
+                        <input matInput #usernameForm placeholder="Username" class="alice-blue"/>
+                    </mat-form-field>
+                </div>
+                <div fxFlex>
+                    <mat-form-field>
+                        <input matInput #passwordForm type="password" placeholder="Password" class="alice-blue" (keyup.enter)="login(usernameForm.value, passwordForm.value)"/>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="15%" fxLayoutAlign="end start">
+                    <button mat-button (click)="login(usernameForm.value, passwordForm.value)">
+                        <mat-icon class="alice-blue">input</mat-icon>
+                    </button>
+                </div>
+                <div fxFlex="15%" fxLayoutAlign="end start">
+                    <button mat-button (click)="loginForm()">
+                        <mat-icon class="alice-blue">clear</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="isLoggedIn" class="alice-blue size25px">
+                <button mat-button [matMenuTriggerFor]="menu">
+                    <mat-icon>account_circle</mat-icon>{{ username }}
+                </button>
+                <mat-menu #menu>
+                    <button mat-button (click)="logout()">
+                        <mat-icon>close</mat-icon>Logout
+                    </button>
+                </mat-menu>
+            </div>
+        </div>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row class="pad margin-top">
+        <div fxFlex></div>
+        <div fxFlex="31%" fxLayoutAlign="center center" class="reasons">
+            <p class="blink-text alice-blue">The best destination for food.</p>
+        </div>
+        <div fxFlex>
+        </div>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row class="pad">
+        <div fxFlex fxFlexLayout.xs="column" fxLayoutAlign="center" fxLayoutGap.xs="0">
+            <div *ngIf="show == false" fxFlex="8%">
+                <a mat-button (click)="notYetImplemented()" routerLink="." class="alice-blue">
+                    <mat-icon class="alice-blue">restaurant</mat-icon>Cuisines</a>
+            </div>
+            <div *ngIf="show == false" fxFlex="10%">
+                <a mat-button routerLink="." (click)="notYetImplemented()" class="alice-blue">
+                    <mat-icon class="alice-blue">place</mat-icon>Restaurants</a>
+            </div>
+            <div *ngIf="show == false" fxFlex="10%">
+                <a mat-button routerLink="." (click)="notYetImplemented()" class="alice-blue">
+                    <mat-icon class="alice-blue">sentiment_very_satisfied</mat-icon>Specials</a>
+            </div>
+            <div fxFlex>
+                <div *ngIf="show == true" fxFlex fxFlexLayout.xs="column" fxLayoutAlign="center" fxLayoutGap.xs="0" class="item item-5">
+                    <div fxFlex class="search-bar-options">
+                        <mat-form-field class="stretch">
+                            <input matInput #searchBar type="text" (keyup.enter)="searchCuisine(searchBar)" class="alice-blue small-font stretch" />
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="10%" class="rtl">
+                        <button mat-button (click)="searchCuisine(searchBar)">
+                            <mat-icon class="alice-blue">search</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="10%" class="rtl item item-4">
+                <button mat-button (click)="searchClicked()" class="alice-blue">
+                    <mat-icon class="alice-blue"> {{ iconName }} </mat-icon> {{ searchText }}</button>
+            </div>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+<div name="result" *ngIf="showList && cuisinesOrRestaurantsAvailable">
+    <div *ngFor="let cuisineOrRestaraunt of cuisineOrRestarauntList">
+        <mat-card>
+            <div fxLayout="row" >
+                <div fxFlex="70%" fxLayout="column" fxLayoutGap="30px">
+                    <div name="cuisine" fxFlex fxLayout="row">
+                        <div fxFlex> {{ cuisineOrRestaraunt.cuisine }} </div>
+                        <div fxFlex> {{ cuisineOrRestaraunt.price }} </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex>
+                        <div fxFlex name="restaurant">
+                            {{ cuisineOrRestaraunt.restaurant }}
+                        </div>
+                        <div fxFlex name="distance" fxLayoutAlign="start center">
+                            <mat-icon>place</mat-icon>
+                            {{ cuisineOrRestaraunt.distance }} away
+                        </div>
+                    </div>
+                    <div name="origin" fxFlex>
+                        {{ cuisineOrRestaraunt.origin }} Origin
+                    </div>
+                </div>
+                <div fxFlex>
+                    <img src="{{ cuisineOrRestaraunt.image }}" alt="{{ cuisineOrRestaraunt.cuisine }}'s image"/>
+                </div>
+            </div>
+            <div *ngIf="isLoggedIn && cuisineOrRestaraunt.friendsOrders.length > 0">
+                <div *ngFor="let friendOrder of cuisineOrRestaraunt.friendsOrders" class="font75px">
+                    <em>Your friend {{ friendOrder.friend }} has ordered {{ friendOrder.cuisineName }} here.</em>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>
+<div name="result" *ngIf="showList && !cuisinesOrRestaurantsAvailable">
+    <h2>No cuisine or restaurant named "{{ cuisineOrRestaraunt }}" is available!</h2>
+</div>
+<div *ngIf="!showList" fxLayout="column" fxLayoutAlign="center center">
+    <div *ngFor="let image of backgroundImages">
+        <img [src]="image" alt="Food image"/>
+    </div>
+</div>

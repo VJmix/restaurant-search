@@ -1,0 +1,107 @@
+.navbar-properties {
+    position: sticky;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 999;
+    background-color: rgba(9, 43, 48, 0.432); 
+}
+.stretch {
+    width:100%;
+}
+.padding-top {
+    padding-top: 1%;
+}
+.alice-blue {
+    color: aliceblue;
+}
+.backgound-white {
+    background-color: #fff; 
+}
+.pad {
+    padding: 0% 15% 0% 15%;
+}
+.button {
+    height:inherit;
+    line-height:inherit;
+}
+.size75px {
+    font-size: 75px;
+    color: #5c4a4a;
+}
+.size40px {
+    font-size: 40px;
+}
+.size30px {
+    font-size: 30px;
+}
+.size25px {
+    font-size: 25px;
+}
+.teal {
+    color: rgba(0, 173, 255, 1);
+}
+.margin-top {
+    margin-top: 8px;
+}
+.rtl {
+    direction: rtl;
+}
+.ltr {
+    direction: ltr;
+}
+.margin-zero {
+    margin: 0px 0px 0px 0px;
+}
+.logo-img {
+    display: block;
+}
+.search-bar-options {
+    padding-right: 2px;
+}
+.small-font {
+    font-size: 80%;
+}
+.reasons {
+    display: inline-block;
+}
+.change-button-font {
+    font-family: 'Bitter', serif;
+}
+.blink-text {
+    font-size: 160%;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 10s steps(27) forwards,
+                blink-caret .8s step-end infinite;
+    animation-iteration-count: infinite;
+}
+@keyframes blink-caret {
+    from, to {border: transparent;}
+    50% {border-color: #fff;}
+
+}
+@keyframes typing {
+    0% {width: 0%;}
+    30% {width: 100%;}
+    80% {width: 100%;}
+    90% {width: 0%}
+    100% {width: 0%}
+
+}
+div[name=result] {
+    margin: 0% 15% 0% 15%;
+}
+div[name=cuisine] {
+    font-size: 200%;
+}
+div[name=restaurant] {
+    font-size: 150%;
+}
+div[name=distance] {
+    font-size: 100%;
+    color: #808080;
+}
+div[name=origin] {
+    font-size: 90%;
+}
